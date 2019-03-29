@@ -1,10 +1,10 @@
 const fsPromises = require('fs').promises
 
-let sections
-let title
-let output
-let conversation
-let words
+let sections = []
+let title = []
+let output = []
+let conversation = []
+let words = []
 
 fsPromises
     .readFile('Input.txt', 'utf8')
@@ -17,6 +17,7 @@ fsPromises
         conversation = handleConversation(sections[1])
         renderConversation()
         words = handleWords(sections[2])
+        renderWords()
 
         let wFilename = 'unit' + title[1]
         return fsPromises.writeFile(
@@ -85,12 +86,13 @@ function handleWords(data) {
     // 單字
     // let regexp1 = /(\w+[-\s’])+/g
     // 發音
+    // 片語可能沒發音 數量選擇 '?'
     // let regexp2 = /\[.+\]/g
     // 翻譯
     // let regexp3 = /\(.+/g
     const result = []
     // flags 'g' 可將lastIndex往後調整，不然使用while會無限匹配第一個
-    let regexp = /\d+\. ?((?:\w+[- ’])+)(\[.+\]) ?(\(.+)/g
+    let regexp = /\d+\. ?((?:\w+[- ’])+)(\[.+\])? ?(\(.+)/g
     let i
     while ((i = regexp.exec(data)) !== null) {
         result.push(i)
@@ -116,6 +118,17 @@ function renderConversation() {
     for (let i = 0; i < conversation.length; i++) {
         data[i] = `* ${conversation[i]}`
     }
-    let markdown = `## ${sectionsKeyword[1]}\n${data.join('\n')}\n`
+    let markdown = `## ${sectionsKeyword[1]}\n${data.join('\n')}\n\n`
+    output.push(markdown)
+}
+
+function renderWords() {
+    let data = []
+
+    for (let i = 0; i < words.length; i++) {
+        data[i] = words[i].slice(1).join('|')
+    }
+    let table = `單字 vocabulary|發音 pronunciation|翻譯 translation\n---|---|---\n${data.join('\n')}`
+    let markdown = `## ${sectionsKeyword[2]}\n${table}\n`
     output.push(markdown)
 }
