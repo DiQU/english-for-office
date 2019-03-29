@@ -1,9 +1,10 @@
 const fsPromises = require('fs').promises
 
-let sections = []
-let title = []
-let output = []
-let conversation = []
+let sections
+let title
+let output
+let conversation
+let words
 
 fsPromises
     .readFile('Input.txt', 'utf8')
@@ -15,6 +16,7 @@ fsPromises
         renderAudio()
         conversation = handleConversation(sections[1])
         renderConversation()
+        words = handleWords(sections[2])
 
         let wFilename = 'unit' + title[1]
         return fsPromises.writeFile(
@@ -34,7 +36,7 @@ fsPromises
         return fsPromises.writeFile('SUMMARY.md', newdata, 'utf8')
     })
     .then(() => console.log('寫入 SUMMARY.md 成功'))
-    .catch(err => console.log('err: ' + err))
+    .catch(err => console.log('某個地方出錯了: ' + err))
 
 // 找出分區的關鍵字
 const sectionsKeyword = [
@@ -77,6 +79,25 @@ function handleConversation(data) {
     return result
 }
 
+function handleWords(data) {
+    // e.g. 'aaa','aaa aaa','aaa-aaa'
+    // e.g. 'a aa aaa',片語空格或連字1個以上
+    // 單字
+    // let regexp1 = /(\w+[-\s’])+/g
+    // 發音
+    // let regexp2 = /\[.+\]/g
+    // 翻譯
+    // let regexp3 = /\(.+/g
+    const result = []
+    // flags 'g' 可將lastIndex往後調整，不然使用while會無限匹配第一個
+    let regexp = /\d+\. ?((?:\w+[- ’])+)(\[.+\]) ?(\(.+)/g
+    let i
+    while ((i = regexp.exec(data)) !== null) {
+        result.push(i)
+    }
+    return result
+}
+
 function renderTitle() {
     let data = `Uint${title[1]}:${title[2]}`
     let markdown = `# ${data}\n\n`
@@ -95,6 +116,6 @@ function renderConversation() {
     for (let i = 0; i < conversation.length; i++) {
         data[i] = `* ${conversation[i]}`
     }
-    let markdown =`## ${sectionsKeyword[1]}\n${data.join('\n')}\n`
+    let markdown = `## ${sectionsKeyword[1]}\n${data.join('\n')}\n`
     output.push(markdown)
 }
