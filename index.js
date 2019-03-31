@@ -1,3 +1,5 @@
+// 避免'未宣告變數'汙染global
+'use strict'
 const fsPromises = require('fs').promises
 
 let sections = []
@@ -5,6 +7,7 @@ let title = []
 let output = []
 let conversation = []
 let words = []
+let focus = []
 
 fsPromises
     .readFile('Input.txt', 'utf8')
@@ -18,6 +21,8 @@ fsPromises
         renderConversation()
         words = handleWords(sections[2])
         renderWords()
+        focus = handleFocus(sections[3])
+        renderFocus()
 
         let wFilename = 'unit' + title[1]
         return fsPromises.writeFile(
@@ -26,7 +31,7 @@ fsPromises
             'utf8'
         )
     })
-    .then(() => {
+    .then(function () {
         console.log('寫入 uint.md 成功')
         return fsPromises.readFile('SUMMARY.md', 'utf8')
     })
@@ -61,7 +66,7 @@ function sectionlize(data, sectionsKeyword) {
         sections[i - 1] = data.slice(index[i - 1], index[i])
     }
     // 加上'最後取得的 index' 到'檔案結束'那一段
-    sections.push(data.slice(index[index.length - 1], -1))
+    sections.push(data.slice(index[index.length - 1]))
     return sections
 }
 
@@ -100,6 +105,44 @@ function handleWords(data) {
     return result
 }
 
+function handleFocus(data) {
+    let result = []
+
+    // 先將分類的index找出來
+    let regexp = /《.+》/g
+    let sectionIndex = []
+    let item = []
+    while ((item = regexp.exec(data)) !== null) {
+        sectionIndex.push(item.index)
+    }
+
+    // 取出的分別的內容
+    sectionIndex.unshift(0)
+    let a = []
+    let sections = []
+    for (let i = 0; i < sectionIndex.length; i++) {
+        if (i === sectionIndex.length - 1) {
+            sections.push(data.slice(sectionIndex[i]))
+        } else sections.push(data.slice(sectionIndex[i], sectionIndex[i + 1]))
+
+        // 處理各自的內容
+        a = sections[i].trim().split(/\r\n|\n/g)
+        if (i === 0) {
+            for (let k = 0; k < a.length; k++) {
+                if (k === 0) a[k] = '## ' + a[k]
+                else a[k] = '> ' + a[k]
+            }
+        } else {
+            for (let j = 0; j < a.length; j++) {
+                if (j === 0) a[j] = '#### ' + a[j]
+                else a[j] = a[j].replace(/(?:\d+)?\.\s?(.+)/,j + '. ' + '$1')
+            }
+        }
+        result.push(a)
+    }
+    return result
+}
+
 function renderTitle() {
     let data = `Uint${title[1]}:${title[2]}`
     let markdown = `# ${data}\n\n`
@@ -128,7 +171,10 @@ function renderWords() {
     for (let i = 0; i < words.length; i++) {
         data[i] = words[i].slice(1).join('|')
     }
-    let table = `單字 vocabulary|發音 pronunciation|翻譯 translation\n---|---|---\n${data.join('\n')}`
+    let table = `單字 vocabulary|發音 pronunciation|翻譯 translation\n---|---|---\n${data.join(
+        '\n'
+    )}`
     let markdown = `## ${sectionsKeyword[2]}\n${table}\n`
     output.push(markdown)
 }
+
