@@ -23,6 +23,8 @@ fsPromises
         renderWords()
         focus = handleFocus(sections[3])
         renderFocus()
+        renderExercises(sections[4])
+        renderAnswer(sections[5])
 
         let wFilename = 'unit' + title[1]
         return fsPromises.writeFile(
@@ -181,9 +183,28 @@ function renderWords() {
 function renderFocus() {
     let data = []
     for (let i = 0; i < focus.length; i++) {
-        if (i === 0)   data[i] = focus [i].join('\n')
+        if (i === 0) data[i] = focus[i].join('\n')
         else data[i] = focus[i].join('\n1. ')
     }
-    let markdown =  data.join('\n\n')
+    let markdown = data.join('\n\n')
+    output.push(markdown)
+}
+
+function renderExercises(data) {
+    let elements = data.trim().split(/\n|\r\n/)
+    elements = elements.map((elem, i) => {
+        if (i === 0) return elem
+        elem = '* ' + elem
+        return elem
+    })
+    let markdown = `\n\n## ${elements.shift()}\n${elements.join('\n')}\n\n`
+    output.push(markdown)
+}
+
+function renderAnswer(data) {
+    let regexp = /(《.+》.+)/
+    let item = data.split(/\r\n|\n/).shift()
+    let markdown = item.replace(regexp, '`$1`')
+
     output.push(markdown)
 }
