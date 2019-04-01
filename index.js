@@ -40,11 +40,18 @@ fsPromises
     })
     .then(data => {
         console.log('讀入 SUMMARY.md 成功:', data)
-        let link = `* [unit${title[1]}:${title[2]}](./units/unit${title[1]}.md)`
-        let lastItem = data.trim().split(/\r\n|\n/).pop()
-        let newItem = link
-        if (lastItem === newItem) data = data.trim()
-        else data = data.trim() + '\r\n' + newItem
+        let newItem = `* [unit${title[1]}:${title[2]}](./units/unit${title[1]}.md)`
+        let Items = data.trim().split(/\r\n|\n/)
+        let exist = false
+        for (item of Items) {
+            if (item === newItem) {
+                exist = true
+                break
+            }
+        }
+        let newdata = ''
+        if (exist) newdata = data.trim()
+        else newdata = data.trim() + '\r\n' + newItem
 
         return fsPromises.writeFile('SUMMARY.md', data, 'utf8')
     })
