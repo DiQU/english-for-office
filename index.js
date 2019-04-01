@@ -39,9 +39,13 @@ fsPromises
     })
     .then(data => {
         console.log('讀入 SUMMARY.md 成功:', data)
-        let link = `[unit${title[1]}:${title[2]}](./units/unit${title[1]}.md)`
-        let newdata = data.trim() + '\r\n* ' + link
-        return fsPromises.writeFile('SUMMARY.md', newdata, 'utf8')
+        let link = `* [unit${title[1]}:${title[2]}](./units/unit${title[1]}.md)`
+        let lastItem = data.trim().split(/\r\n|\n/).pop()
+        let newItem = link
+        if (lastItem === newItem) data = data.trim()
+        else data = data.trim() + '\r\n' + newItem
+
+        return fsPromises.writeFile('SUMMARY.md', data, 'utf8')
     })
     .then(() => console.log('寫入 SUMMARY.md 成功'))
     .catch(err => console.log('某個地方出錯了: ' + err))
@@ -129,11 +133,13 @@ function handleFocus(data) {
 
         // 處理各自的內容
         a = sections[i].trim().split(/\r\n|\n/g)
+        // ## 段落
         if (i === 0) {
             for (let k = 0; k < a.length; k++) {
                 if (k === 0) a[k] = '## ' + a[k]
                 else a[k] = '> ### ' + a[k]
             }
+            // #### 段落
         } else {
             for (let j = 0; j < a.length; j++) {
                 if (j === 0) a[j] = '#### ' + a[j]
