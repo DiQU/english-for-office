@@ -130,12 +130,12 @@ function handleFocus(data) {
         if (i === 0) {
             for (let k = 0; k < a.length; k++) {
                 if (k === 0) a[k] = '## ' + a[k]
-                else a[k] = '> ' + a[k]
+                else a[k] = '> ### ' + a[k]
             }
         } else {
             for (let j = 0; j < a.length; j++) {
                 if (j === 0) a[j] = '#### ' + a[j]
-                else a[j] = a[j].replace(/(?:\d+)?\.\s?(.+)/,j + '. ' + '$1')
+                else a[j] = a[j].replace(/(?:\d+)?\.\s?(.+)/, '$1')
             }
         }
         result.push(a)
@@ -174,7 +174,16 @@ function renderWords() {
     let table = `單字 vocabulary|發音 pronunciation|翻譯 translation\n---|---|---\n${data.join(
         '\n'
     )}`
-    let markdown = `## ${sectionsKeyword[2]}\n${table}\n`
+    let markdown = `## ${sectionsKeyword[2]}\n${table}\n\n`
     output.push(markdown)
 }
 
+function renderFocus() {
+    let data = []
+    for (let i = 0; i < focus.length; i++) {
+        if (i === 0)   data[i] = focus [i].join('\n')
+        else data[i] = focus[i].join('\n1. ')
+    }
+    let markdown =  data.join('\n\n')
+    output.push(markdown)
+}
