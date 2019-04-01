@@ -1,6 +1,7 @@
 // 避免'未宣告變數'汙染global
 'use strict'
 const fsPromises = require('fs').promises
+const audioSources = require('./audioSources')
 
 let sections = []
 let title = []
@@ -158,7 +159,8 @@ function renderTitle() {
 }
 
 function renderAudio() {
-    let url = '#'
+    let unit = `unit${title[1]}`
+    let url = audioSources[unit]
     let data = `<audio controls preload="none"><source src="${url}"></audio>`
     let markdown = `${data}\n\n`
     output.push(markdown)
