@@ -39,11 +39,11 @@ fsPromises
         return fsPromises.readFile('SUMMARY.md', 'utf8')
     })
     .then(data => {
-        console.log('讀入 SUMMARY.md 成功:', data)
+        console.log('讀入 SUMMARY.md 成功:')
         let newItem = `* [unit${title[1]}:${title[2]}](./units/unit${title[1]}.md)`
         let Items = data.trim().split(/\r\n|\n/)
         let exist = false
-        for (item of Items) {
+        for (let item of Items) {
             if (item === newItem) {
                 exist = true
                 break
@@ -53,7 +53,7 @@ fsPromises
         if (exist) newdata = data.trim()
         else newdata = data.trim() + '\r\n' + newItem
 
-        return fsPromises.writeFile('SUMMARY.md', data, 'utf8')
+        return fsPromises.writeFile('SUMMARY.md', newdata, 'utf8')
     })
     .then(() => console.log('寫入 SUMMARY.md 成功'))
     .catch(err => console.log('某個地方出錯了: ' + err))
