@@ -24,7 +24,7 @@ aboard |[әˋbord]|(adv.) 上(船，飛機，車)
 > ### S. want to +V
 
 #### 《Note》
-1. I want to introduce a new member我要介紹一個新的成員。
+1. I want to introduce a new member 我要介紹一個新的成員。
 
 #### 《Examples》
 1. I want to go swimming.
