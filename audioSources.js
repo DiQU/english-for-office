@@ -8,5 +8,7 @@ module.exports = {
     unit7: 'https://channelplus.ner.gov.tw/api/audio/5ad2e64df95e3500064f437c',
     unit8: 'https://channelplus.ner.gov.tw/api/audio/5ad2e64ef95e3500064f437e',
     unit9: 'https://channelplus.ner.gov.tw/api/audio/5ad2e64ff95e3500064f4380',
-    unit10: 'https://channelplus.ner.gov.tw/api/audio/5ad2e651f95e3500064f4382'
+    unit10: 'https://channelplus.ner.gov.tw/api/audio/5ad2e651f95e3500064f4382',
+    unit11: 'https://channelplus.ner.gov.tw/api/audio/5ad2e653f95e3500064f4385',
+    unit12: 'https://channelplus.ner.gov.tw/api/audio/5ad2e654f95e3500064f4387'
 }

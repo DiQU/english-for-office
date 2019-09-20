@@ -11,3 +11,5 @@
 * [unit8: Let me clarify your information.](./units/unit8.md)
 * [unit9: I’m going to ask you a few questions.](./units/unit9.md)
 * [unit10: When should I call back?](./units/unit10.md)
+* [unit11: How many copies do you need?](./units/unit11.md)
+* [unit12: I can’t find my stapler.](./units/unit12.md)
