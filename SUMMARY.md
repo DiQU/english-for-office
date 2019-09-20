@@ -9,3 +9,5 @@
 * [unit6: I want to introduce a new member.](./units/unit6.md)
 * [unit7: Is there anything wrong?](./units/unit7.md)
 * [unit8: Let me clarify your information.](./units/unit8.md)
+* [unit9: I’m going to ask you a few questions.](./units/unit9.md)
+* [unit10: When should I call back?](./units/unit10.md)
