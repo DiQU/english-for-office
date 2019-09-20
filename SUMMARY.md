@@ -13,3 +13,6 @@
 * [unit10: When should I call back?](./units/unit10.md)
 * [unit11: How many copies do you need?](./units/unit11.md)
 * [unit12: I can’t find my stapler.](./units/unit12.md)
+* [unit13: Guess what?](./units/unit13.md)
+* [unit14: I really need a time-out.](./units/unit14.md)
+* [unit15: I am interested in switching fields.](./units/unit15.md)
