@@ -5,5 +5,6 @@ module.exports = {
     unit4: 'https://channelplus.ner.gov.tw/api/audio/5ad2e64af95e3500064f4376',
     unit5: 'https://channelplus.ner.gov.tw/api/audio/5ad2e64bf95e3500064f4378',
     unit6: 'https://channelplus.ner.gov.tw/api/audio/5ad2e64cf95e3500064f437a',
-    unit7: 'https://channelplus.ner.gov.tw/api/audio/5ad2e64df95e3500064f437c'
+    unit7: 'https://channelplus.ner.gov.tw/api/audio/5ad2e64df95e3500064f437c',
+    unit8: 'https://channelplus.ner.gov.tw/api/audio/5ad2e64ef95e3500064f437e'
 }

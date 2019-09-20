@@ -8,3 +8,4 @@
 * [unit5: I need to work overtime.](./units/unit5.md)
 * [unit6: I want to introduce a new member.](./units/unit6.md)
 * [unit7: Is there anything wrong?](./units/unit7.md)
+* [unit8: Let me clarify your information.](./units/unit8.md)
