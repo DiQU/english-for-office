@@ -16,3 +16,6 @@
 * [unit13: Guess what?](./units/unit13.md)
 * [unit14: I really need a time-out.](./units/unit14.md)
 * [unit15: I am interested in switching fields.](./units/unit15.md)
+* [unit16: I need to stay in the area because of family.](./units/unit16.md)
+* [unit17: I am open to relocating.](./units/unit17.md)
+* [unit18: A minimum of $1,500 per month.](./units/unit18.md)
