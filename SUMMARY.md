@@ -19,3 +19,5 @@
 * [unit16: I need to stay in the area because of family.](./units/unit16.md)
 * [unit17: I am open to relocating.](./units/unit17.md)
 * [unit18: A minimum of $1,500 per month.](./units/unit18.md)
+* [unit19: I look forward to working with you.](./units/unit19.md)
+* [unit20: I need help in ordering office supplies.](./units/unit20.md)
